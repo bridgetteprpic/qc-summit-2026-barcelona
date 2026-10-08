@@ -414,6 +414,10 @@
       font-size: 14px;
     }
 
+    .time-row:last-child {
+      border-bottom: none;
+    }
+
     .time-row .time {
       font-family: var(--font-mono);
       font-weight: 700;
@@ -722,7 +726,7 @@
         <div class="card border-teal">
           <div class="card-icon icon-yellow"><i class="fa-solid fa-sun"></i></div>
           <h3>Weather</h3>
-          <p>October in Barcelona brings comfortable autumn temperatures averaging <strong>22°C – 25°C</strong>. Light jackets recommended for evening dinners.</p>
+          <p>October in Barcelona brings comfortable autumn temperatures averaging <strong>22°C – 25°C</strong>. Light jackets recommended for evenings.</p>
         </div>
 
         <div class="card border-purple">
@@ -758,12 +762,11 @@
             <span class="day-subtitle">Arrivals & Welcome</span>
           </div>
           <div class="agenda-card">
-            <div class="time-block">
-              <span class="time-label"><i class="fa-regular fa-clock"></i> Evening</span>
-              <div class="event-details">
-                <h4>Welcome Drinks and Snacks</h4>
-                <p><i class="fa-solid fa-location-dot"></i> Motel One Barcelona: Ciutadella</p>
-                <p class="sub-text">Passeig de Pujades, 11-13, Sant Martí, 08018 Barcelona</p>
+            <div class="time-row dinner-highlight">
+              <span class="time">19:00</span>
+              <div>
+                <strong>Welcome Drinks and Snacks</strong>
+                <p class="sub-text">Motel One Barcelona: Ciutadella · Passeig de Pujades, 11-13, Sant Martí, 08018 Barcelona</p>
                 <a href="https://maps.app.goo.gl/9LffTFWmSq8ZNEH7A" target="_blank" class="map-link"><i class="fa-solid fa-map-location"></i> View Location Map</a>
               </div>
             </div>
@@ -850,7 +853,7 @@
               <span>Walk to Glovo Office (Yellow Park, Carrer de Llull, 108)</span>
             </div>
             <div class="time-row session-highlight">
-              <span class="time">09:00 – 14:00</span>
+              <span class="time">09:00 – 16:00</span>
               <span><strong>Leads Day Sessions at Glovo Office</strong></span>
             </div>
             <div class="time-row">
