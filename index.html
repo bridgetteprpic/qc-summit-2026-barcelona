@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QC Summit 2026 · Barcelona</title>
+
+  <!-- Google Fonts: Outfit & Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #eeeeee;
+      --text-primary: #16163f;
+      --accent-orange: #fe620e;
+      --accent-purple: #4629ff;
+      --accent-red: #e3342f;
+      --accent-yellow: #ffbb20;
+      --accent-teal: #06b0a1;
+      --accent-pink: #e8106f;
+      
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --sidebar-width: 300px;
+      
+      --font-heading: 'Outfit', -apple-system, sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+      display: flex;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* Sidebar Navigation Drawer */
+    .sidebar {
+      width: var(--sidebar-width);
+      background-color: #ffffff;
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+      padding: 28px 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo-svg {
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logotype-title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 17px;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      line-height: 1.1;
+    }
+
+    .logotype-subtitle {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .nav-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-link i {
+      width: 18px;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background-color: var(--accent-purple);
+      color: #ffffff;
+    }
+
+    .sidebar-footer {
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .mono-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      background-color: #f1f5f9;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .copyright-text {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    /* Main Content Styling */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 40px;
+      max-width: 1140px;
+    }
+
+    .content-section {
+      margin-bottom: 48px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-purple);
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .eyebrow-light { color: var(--accent-yellow); }
+
+    .section-title-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-num {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      background-color: #ffffff;
+      color: var(--text-primary);
+      padding: 6px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .section-title-group h2 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    /* Hero Section */
+    .hero-card {
+      background-color: var(--text-primary);
+      color: #ffffff;
+      padding: 48px;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .eyebrow-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent-yellow);
+      margin-bottom: 16px;
+    }
+
+    .hero-card h1 {
+      font-size: 46px;
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .hero-lead {
+      font-size: 18px;
+      color: #cbd5e1;
+      max-width: 780px;
+      margin-bottom: 28px;
+    }
+
+    .hero-pills {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      color: #ffffff;
+    }
+
+    .pill-orange { background-color: var(--accent-orange); }
+    .pill-purple { background-color: var(--accent-purple); }
+    .pill-teal { background-color: var(--accent-teal); }
+    .pill-pink { background-color: var(--accent-pink); }
+    .pill-yellow { background-color: var(--accent-yellow); color: var(--text-primary); }
+
+    /* Card Layouts & Grids */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 18px;
+      padding: 28px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover { transform: translateY(-2px); }
+
+    /* Card Colored Top Borders */
+    .border-purple { border-top: 6px solid var(--accent-purple); }
+    .border-teal { border-top: 6px solid var(--accent-teal); }
+    .border-pink { border-top: 6px solid var(--accent-pink); }
+    .border-yellow { border-top: 6px solid var(--accent-yellow); }
+    .border-orange { border-top: 6px solid var(--accent-orange); }
+    .border-red { border-top: 6px solid var(--accent-red); }
+
+    .card-icon { font-size: 32px; margin-bottom: 12px; }
+    .icon-purple { color: var(--accent-purple); }
+    .icon-teal { color: var(--accent-teal); }
+    .icon-pink { color: var(--accent-pink); }
+    .icon-yellow { color: var(--accent-yellow); }
+    .icon-orange { color: var(--accent-orange); }
+    .icon-red { color: var(--accent-red); }
+
+    .mono-code {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 16px;
+      background-color: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      margin: 8px 0;
+    }
+
+    .card-desc { color: #64748b; font-size: 14px; margin-bottom: 16px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-purple { background-color: var(--accent-purple); color: #fff; }
+    .btn-teal { background-color: var(--accent-teal); color: #fff; }
+    .btn-yellow { background-color: var(--accent-yellow); color: var(--text-primary); }
+    .btn-outline { border: 1px solid var(--border-color); color: var(--text-primary); }
+    .btn-sm { padding: 8px 14px; font-size: 12px; }
+
+    /* Hotel Metrics */
+    .card-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .mt-24 { margin-top: 24px; }
+    .mb-20 { margin-bottom: 20px; }
+
+    .metric-box {
+      background-color: #f8fafc;
+      padding: 16px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .metric-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 700;
+    }
+
+    .metric-value { font-size: 22px; font-weight: 800; }
+    .metric-sub { font-size: 12px; color: #64748b; }
+
+    .info-panel {
+      background-color: #f8fafc;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .info-panel ul { list-style: none; margin-top: 10px; }
+    .info-panel li { margin-bottom: 8px; font-size: 14px; }
+
+    .alert-panel {
+      background-color: #fff1f2;
+      border: 1px solid #fecdd3;
+    }
+
+    .specs-list { display: flex; flex-direction: column; gap: 14px; }
+    .spec-item { display: flex; gap: 12px; align-items: flex-start; }
+
+    /* Agenda Timeline */
+    .agenda-timeline { display: flex; flex-direction: column; gap: 24px; }
+
+    .agenda-day {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 20px;
+    }
+
+    .day-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .day-badge {
+      background-color: var(--text-primary);
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 8px;
+      width: fit-content;
+    }
+
+    .badge-red { background-color: var(--accent-red); }
+
+    .day-subtitle { font-size: 13px; color: #64748b; font-weight: 600; }
+
+    .agenda-card {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--border-color);
+    }
+
+    .time-row {
+      display: flex;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 14px;
+    }
+
+    .time-row .time {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      min-width: 100px;
+      color: var(--accent-purple);
+    }
+
+    .session-highlight {
+      background-color: #f0fdf4;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .dinner-highlight {
+      background-color: #fff7ed;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .map-link, .inline-link {
+      color: var(--accent-purple);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    /* Footer Section */
+    .footer-section {
+      background-color: var(--text-primary);
+      color: #ffffff;
+      padding: 40px;
+      border-radius: 24px;
+    }
+
+    .text-white { color: #ffffff; }
+
+    .card-dark {
+      background-color: #212154;
+      border: none;
+      color: #ffffff;
+    }
+
+    .contact-rows { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+
+    .contact-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #323270;
+      padding-bottom: 8px;
+    }
+
+    .phone-link {
+      color: var(--accent-yellow);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 32px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .sidebar {
+        transform: translateX(-100%);
+        width: 100%;
+        height: auto;
+        bottom: auto;
+      }
+      
+      .sidebar.open { transform: translateX(0); }
+      .nav-toggle { display: block; }
+      
+      .main-content { margin-left: 0; padding: 20px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .agenda-day { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-container">
+        <!-- Exact Brand Mosaic Logo Icon Rendered via Vector SVG -->
+        <svg class="brand-logo-svg" viewBox="0 0 100 120" width="36" height="42" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 5,2 L 28,2 L 28,30 L 10,38 Z" fill="#E3342F"/>
+          <path d="M 32,5 L 75,2 L 72,18 L 32,22 Z" fill="#FE620E"/>
+          <path d="M 78,5 L 98,12 L 95,35 L 80,30 Z" fill="#FFBB20"/>
+          <path d="M 35,26 L 68,20 L 70,35 L 32,45 Z" fill="#06B0A1"/>
+          <path d="M 5,42 L 25,40 L 22,95 L 2,85 Z" fill="#E8106F"/>
+          <path d="M 40,38 L 82,32 L 85,82 L 40,85 Z" fill="#E3342F"/>
+          <path d="M 88,38 L 98,42 L 95,95 L 82,88 Z" fill="#FFBB20"/>
+          <path d="M 28,50 L 38,48 L 36,80 L 26,75 Z" fill="#06B0A1"/>
+          <path d="M 5,90 L 30,82 L 28,118 L 2,112 Z" fill="#16163F"/>
+          <path d="M 32,85 L 52,80 L 48,118 L 30,115 Z" fill="#FE620E"/>
+          <path d="M 55,85 L 72,82 L 70,118 L 52,115 Z" fill="#E3342F"/>
+          <path d="M 75,88 L 98,82 L 98,118 L 72,118 Z" fill="#16163F"/>
+          <path d="M 35,2 L 48,0 L 42,8 L 32,8 Z" fill="#4629FF"/>
+        </svg>
+
+        <div class="brand-text">
+          <span class="logotype-title">QC SUMMIT 2026</span>
+          <span class="logotype-subtitle">Glovo HQ · Barcelona</span>
+        </div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <nav class="nav-menu">
+      <a href="#hero" class="nav-link active"><i class="fa-solid fa-compass"></i> Welcome</a>
+      <a href="#communications" class="nav-link"><i class="fa-solid fa-comments"></i> Communications</a>
+      <a href="#accommodations" class="nav-link"><i class="fa-solid fa-hotel"></i> Accommodations</a>
+      <a href="#venue" class="nav-link"><i class="fa-solid fa-building-user"></i> Summit Venue</a>
+      <a href="#barcelona" class="nav-link"><i class="fa-solid fa-location-dot"></i> Barcelona Guide</a>
+      <a href="#agenda" class="nav-link"><i class="fa-solid fa-calendar-days"></i> Agenda & Socials</a>
+      <a href="#support" class="nav-link"><i class="fa-solid fa-headset"></i> Support & Safety</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="mono-badge">12–15 OCTOBER 2026</div>
+      <p class="copyright-text">Glovo HQ · Barcelona, Spain</p>
+    </div>
+  </aside>
+
+  <!-- Main Scrollable Content Area -->
+  <main class="main-content">
+
+    <!-- Hero Header -->
+    <section id="hero" class="content-section">
+      <div class="hero-card">
+        <div class="eyebrow-tag"><i class="fa-solid fa-sparkles"></i> GLOVO HQ · BARCELONA | 12–15 OCTOBER 2026</div>
+        <h1>Welcome · Benvinguts</h1>
+        <p class="hero-lead">Welcome to our <strong>2026 QC Summit</strong> taking place in the lively city of Barcelona, Spain! Here you'll find all venue details, schedules, transport tips, and social agendas.</p>
+
+        <div class="hero-pills">
+          <span class="pill pill-orange"><i class="fa-regular fa-calendar"></i> Oct 12–15, 2026</span>
+          <span class="pill pill-purple"><i class="fa-solid fa-map-pin"></i> Yellow Park - GLOVO</span>
+          <span class="pill pill-teal"><i class="fa-solid fa-wifi"></i> Guest Wi-Fi Available</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Communications Section -->
+    <section id="communications" class="content-section">
+      <div class="section-title-group">
+        <span class="section-num">01</span>
+        <div>
+          <span class="eyebrow">COMMUNICATIONS > CONNECTIVITY</span>
+          <h2>Communications & Groups</h2>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card border-purple">
+          <div class="card-icon icon-purple"><i class="fa-brands fa-slack"></i></div>
+          <span class="eyebrow">OFFICIAL CHANNEL</span>
+          <h3>Slack Channel</h3>
+          <p class="mono-code">#qc-summit-2026</p>
+          <p class="card-desc">Stay tuned for real-time announcements, speaker slides, and live Q&A during the summit sessions.</p>
+          <a href="https://deliveryhero.enterprise.slack.com/archives/C0C5A497BL0" target="_blank" rel="noopener" class="btn btn-purple">
+            Join Slack Channel <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+
+        <div class="card border-teal">
+          <div class="card-icon icon-teal"><i class="fa-brands fa-whatsapp"></i></div>
+          <span class="eyebrow">ATTENDEE CHAT</span>
+          <h3>WhatsApp Group</h3>
+          <p class="card-desc">Join the official attendee WhatsApp group chat for instant updates and meetup coordination throughout the summit.</p>
+          <a href="https://chat.whatsapp.com/K6FtWUL6VfGAf4XuZ7JFCP?mode=gi_t" target="_blank" rel="noopener" class="btn btn-teal">
+            Join WhatsApp Group <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accommodations Section -->
+    <section id="accommodations" class="content-section">
+      <div class="section-title-group">
+        <span class="section-num">02</span>
+        <div>
+          <span class="eyebrow">LOGISTICS > ACCOMMODATIONS</span>
+          <h2>Hotel & Accommodations</h2>
+        </div>
+      </div>
+
+      <div class="card border-pink">
+        <div class="card-header-row">
+          <div>
+            <span class="pill pill-pink">PRE-ARRANGED ACCOMMODATION</span>
+            <h3 class="hotel-title">Motel One Barcelona: Ciutadella</h3>
+            <p class="location-text"><i class="fa-solid fa-location-dot"></i> Passeig de Pujades, 11-13, Sant Martí, 08018 Barcelona</p>
+          </div>
+          <a href="https://maps.app.goo.gl/K7KXWrcve7Kwj6UA8" target="_blank" rel="noopener" class="btn btn-outline">
+            Google Maps <i class="fa-solid fa-map-location-dot"></i>
+          </a>
+        </div>
+
+        <!-- Times Grid -->
+        <div class="grid-3 mt-24">
+          <div class="metric-box">
+            <span class="metric-label"><i class="fa-solid fa-right-to-bracket icon-pink"></i> CHECK-IN</span>
+            <span class="metric-value">15:00</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-label"><i class="fa-solid fa-right-from-bracket icon-pink"></i> CHECK-OUT</span>
+            <span class="metric-value">12:00</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-label"><i class="fa-solid fa-utensils icon-pink"></i> BREAKFAST</span>
+            <span class="metric-value">07:00 – 11:00</span>
+            <span class="metric-sub">Daily at hotel restaurant</span>
+          </div>
+        </div>
+
+        <div class="grid-2 mt-24">
+          <div class="info-panel">
+            <h4><i class="fa-solid fa-route icon-purple"></i> Distance to Glovo Office</h4>
+            <p><strong>Carrer de Llull, 108, Sant Martí, 08005 Barcelona</strong></p>
+            <ul>
+              <li><i class="fa-solid fa-person-walking"></i> <strong>20 min walk</strong> from hotel</li>
+              <li><i class="fa-solid fa-taxi"></i> <strong>6 min taxi ride</strong> from hotel</li>
+              <li><i class="fa-solid fa-plane"></i> <strong>25 min taxi ride</strong> from Josep Tarradellas Barcelona-El Prat Airport</li>
+            </ul>
+          </div>
+
+          <div class="info-panel alert-panel">
+            <h4><i class="fa-solid fa-triangle-exclamation icon-red"></i> Transfer Information</h4>
+            <p>Airport and hotel transfers are <strong>not provided</strong>. Attendees are responsible for arranging their individual transfers via taxi or public transit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summit Venue Section -->
+    <section id="venue" class="content-section">
+      <div class="section-title-group">
+        <span class="section-num">03</span>
+        <div>
+          <span class="eyebrow">LOCATION > CAMPUS</span>
+          <h2>Summit Venue</h2>
+        </div>
+      </div>
+
+      <div class="card border-yellow">
+        <span class="pill pill-yellow">HQ LOCATION</span>
+        <h3>Yellow Park - GLOVO</h3>
+        <p class="location-text"><i class="fa-solid fa-location-dot"></i> Carrer de Llull, 108, Sant Martí, 08005 Barcelona</p>
+        <p class="card-desc">Centrally located and easily accessible via public transport, taxi (7min), or walking (19min).</p>
+
+        <a href="https://maps.google.com/?q=Carrer+de+Llull,+108,+Sant+Martí,+08005+Barcelona" target="_blank" class="btn btn-outline btn-sm mb-20">
+          Open Location in Google Maps <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+
+        <div class="specs-list">
+          <div class="spec-item">
+            <i class="fa-regular fa-clock icon-orange"></i>
+            <div>
+              <strong>Campus Hours</strong>
+              <p>Monday to Friday, 8:30am – 10:00pm</p>
+            </div>
+          </div>
+          <div class="spec-item">
+            <i class="fa-solid fa-wifi icon-teal"></i>
+            <div>
+              <strong>Wi-Fi</strong>
+              <p>Guest Wi-Fi (open network)</p>
+            </div>
+          </div>
+          <div class="spec-item">
+            <i class="fa-solid fa-ban-smoking icon-red"></i>
+            <div>
+              <strong>Smoking Policy</strong>
+              <p>Allowed only outside buildings; courtyard is the main area. <em>Smoking on terraces is not permitted.</em></p>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://docs.google.com/presentation/d/136hqJabew5AUI_rVj5xqx5EAvTRtGh85RLqH_jtzJtE/edit?slide=id.g20df5702781_0_8#slide=id.g20df5702781_0_8" target="_blank" rel="noopener" class="btn btn-yellow mt-20">
+          Yellow Park - Internal Visitors Guidelines <i class="fa-solid fa-file-powerpoint"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Barcelona Guide Section -->
+    <section id="barcelona" class="content-section">
+      <div class="section-title-group">
+        <span class="section-num">04</span>
+        <div>
+          <span class="eyebrow">CITY GUIDE > BARCELONA</span>
+          <h2>Barcelona Travel & Local Info</h2>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card border-teal">
+          <div class="card-icon icon-yellow"><i class="fa-solid fa-sun"></i></div>
+          <h3>Weather</h3>
+          <p>October in Barcelona brings comfortable autumn temperatures averaging <strong>22°C – 25°C</strong>. Light jackets recommended for evening dinners.</p>
+        </div>
+
+        <div class="card border-purple">
+          <div class="card-icon icon-purple"><i class="fa-solid fa-bus"></i></div>
+          <h3>Getting Around</h3>
+          <p>Official taxis are black and yellow (FreeNow app works well). Metro Line L4 (Yellow) stops at Llacuna & Poblenou near campus.</p>
+        </div>
+
+        <div class="card border-red">
+          <div class="card-icon icon-red"><i class="fa-solid fa-kit-medical"></i></div>
+          <h3>Emergency & First Aid</h3>
+          <p>General Emergency: <strong>112</strong>. On-site First Aid Kits are available at campus reception.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Agenda & Social Activities Section -->
+    <section id="agenda" class="content-section">
+      <div class="section-title-group">
+        <span class="section-num">05</span>
+        <div>
+          <span class="eyebrow">SCHEDULE > SUMMIT AGENDA</span>
+          <h2>Dinners & Social Activities</h2>
+        </div>
+      </div>
+
+      <div class="agenda-timeline">
+        
+        <!-- Day 1: Monday -->
+        <div class="agenda-day">
+          <div class="day-header">
+            <span class="day-badge">MONDAY, OCT 12</span>
+            <span class="day-subtitle">Arrivals & Welcome</span>
+          </div>
+          <div class="agenda-card">
+            <div class="time-block">
+              <span class="time-label"><i class="fa-regular fa-clock"></i> Evening</span>
+              <div class="event-details">
+                <h4>Welcome Drinks and Snacks</h4>
+                <p><i class="fa-solid fa-location-dot"></i> Motel One Barcelona: Ciutadella</p>
+                <p class="sub-text">Passeig de Pujades, 11-13, Sant Martí, 08018 Barcelona</p>
+                <a href="https://maps.app.goo.gl/9LffTFWmSq8ZNEH7A" target="_blank" class="map-link"><i class="fa-solid fa-map-location"></i> View Location Map</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 2: Tuesday -->
+        <div class="agenda-day">
+          <div class="day-header">
+            <span class="day-badge">TUESDAY, OCT 13</span>
+            <span class="day-subtitle">Summit Day 1</span>
+          </div>
+          <div class="agenda-card">
+            <div class="time-row">
+              <span class="time">08:00</span>
+              <span>Walk to Glovo Office (Yellow Park, Carrer de Llull, 108) <a href="https://maps.app.goo.gl/wYAwkuUtYzaFetkb7" target="_blank" class="inline-link">[Map]</a></span>
+            </div>
+            <div class="time-row">
+              <span class="time">08:30</span>
+              <span>Arrive at Glovo Office for Check-in</span>
+            </div>
+            <div class="time-row session-highlight">
+              <span class="time">09:00 – 17:30</span>
+              <span><strong>Summit Sessions at Glovo Office</strong></span>
+            </div>
+            <div class="time-row">
+              <span class="time">18:30</span>
+              <span>Buses arrive at Motel One Barcelona: Ciutadella</span>
+            </div>
+            <div class="time-row dinner-highlight">
+              <span class="time">19:00 – 22:00</span>
+              <div>
+                <strong>Dinner at Nuara</strong>
+                <p class="sub-text">Moll de Gregal, Local 11, Sant Martí, 08005 Barcelona (Self departure)</p>
+                <a href="https://maps.app.goo.gl/yBGSF9AU1jqVhfZ57" target="_blank" class="map-link"><i class="fa-solid fa-map"></i> Google Maps Link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 3: Wednesday -->
+        <div class="agenda-day">
+          <div class="day-header">
+            <span class="day-badge">WEDNESDAY, OCT 14</span>
+            <span class="day-subtitle">Summit Day 2</span>
+          </div>
+          <div class="agenda-card">
+            <div class="time-row">
+              <span class="time">08:30</span>
+              <span>Walk to Glovo Office (Yellow Park, Carrer de Llull, 108) <a href="https://maps.app.goo.gl/wYAwkuUtYzaFetkb7" target="_blank" class="inline-link">[Map]</a></span>
+            </div>
+            <div class="time-row session-highlight">
+              <span class="time">09:00 – 18:00</span>
+              <span><strong>Summit Sessions at Glovo Office</strong></span>
+            </div>
+            <div class="time-row">
+              <span class="time">18:00</span>
+              <span>Walk to Hotel (Motel One Barcelona: Ciutadella)</span>
+            </div>
+            <div class="time-row">
+              <span class="time">19:00</span>
+              <span>Buses arrive at Motel One Barcelona: Ciutadella to bring you to restaurant</span>
+            </div>
+            <div class="time-row dinner-highlight">
+              <span class="time">19:30 – 22:30</span>
+              <div>
+                <strong>Dinner at Terrassa Martínez</strong>
+                <p class="sub-text">Ctra. de Miramar, 38, Sants-Montjuïc, 08038 Barcelona (Self departure)</p>
+                <a href="https://maps.app.goo.gl/KJwfroHMBhJqD5C56" target="_blank" class="map-link"><i class="fa-solid fa-map"></i> Google Maps Link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 4: Thursday -->
+        <div class="agenda-day">
+          <div class="day-header">
+            <span class="day-badge badge-red">THURSDAY, OCT 15</span>
+            <span class="day-subtitle">Leads Day</span>
+          </div>
+          <div class="agenda-card">
+            <div class="time-row">
+              <span class="time">08:30</span>
+              <span>Walk to Glovo Office (Yellow Park, Carrer de Llull, 108)</span>
+            </div>
+            <div class="time-row session-highlight">
+              <span class="time">09:00 – 14:00</span>
+              <span><strong>Leads Day Sessions at Glovo Office</strong></span>
+            </div>
+            <div class="time-row">
+              <span class="time">18:30</span>
+              <span>Walk to Restaurant</span>
+            </div>
+            <div class="time-row dinner-highlight">
+              <span class="time">19:00 – 21:30</span>
+              <div>
+                <strong>Dinner at Circolo Popolare Barcelona</strong>
+                <p class="sub-text">Pg. de Gràcia, 44, Eixample, 08007 Barcelona (Self departure)</p>
+                <a href="https://maps.app.goo.gl/paN92KYRBVJqZxQC9" target="_blank" class="map-link"><i class="fa-solid fa-map"></i> Google Maps Link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Support & Safety Contacts Section -->
+    <footer id="support" class="footer-section">
+      <div class="section-title-group border-none">
+        <span class="section-num">06</span>
+        <div>
+          <span class="eyebrow eyebrow-light">CONTACTS > ASSISTANCE</span>
+          <h2 class="text-white">Emergency & Support Contacts</h2>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card card-dark">
+          <div class="card-icon icon-yellow"><i class="fa-solid fa-headset"></i></div>
+          <h3>Summit Support Team</h3>
+          <div class="contact-rows">
+            <div class="contact-item">
+              <span class="name">Maria Baranovskaia</span>
+              <a href="tel:+4915510524526" class="phone-link">+49 155 105 24526</a>
+            </div>
+            <div class="contact-item">
+              <span class="name">Bridgette Prpić</span>
+              <a href="tel:+491758128892" class="phone-link">+49 175 812 8892</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-dark">
+          <div class="card-icon icon-yellow"><i class="fa-solid fa-shield-heart"></i></div>
+          <h3>Glovo Health & Safety Team On-site</h3>
+          <div class="contact-rows">
+            <div class="contact-item">
+              <span class="name">Belu Maggi</span>
+              <a href="tel:+34638792012" class="phone-link">+34 638 792 012</a>
+            </div>
+            <div class="contact-item">
+              <span class="name">Cristina Santiago</span>
+              <a href="tel:+34667815527" class="phone-link">+34 667 815 527</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 QC Summit · Delivery Hero</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navToggle = document.getElementById('navToggle');
+      const sidebar = document.getElementById('sidebar');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      // Mobile menu toggle handler
+      if (navToggle) {
+        navToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('open');
+        });
+      }
+
+      // Smooth navigation link scrolling
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+
+          const targetId = link.getAttribute('href');
+          const targetSection = document.querySelector(targetId);
+
+          if (targetSection) {
+            sidebar.classList.remove('open');
+            targetSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Active menu indicator on manual page scroll
+      const sections = document.querySelectorAll('section, footer');
+      const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+              if (link.getAttribute('href') === `#${id}`) {
+                link.classList.add('active');
+              } else {
+                link.classList.remove('active');
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => observer.observe(section));
+    });
+  </script>
+</body>
+</html>
